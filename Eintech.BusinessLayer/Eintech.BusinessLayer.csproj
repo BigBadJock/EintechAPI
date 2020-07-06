@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Eintech.BusinessLayer.Contracts\Eintech.BusinessLayer.Contracts.csproj" />
+    <ProjectReference Include="..\Eintech.DataLayer.Contracts\Eintech.DataLayer.Contracts.csproj" />
+    <ProjectReference Include="..\Eintech.DataLayer\Eintech.DataLayer.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,14 @@
+F:\GitHub\EintechAPI\Eintech.DataModels\bin\Debug\netcoreapp3.1\Eintech.DataModels.deps.json
+F:\GitHub\EintechAPI\Eintech.DataModels\bin\Debug\netcoreapp3.1\Eintech.DataModels.dll
+F:\GitHub\EintechAPI\Eintech.DataModels\bin\Debug\netcoreapp3.1\Eintech.DataModels.pdb
+F:\GitHub\EintechAPI\Eintech.DataModels\bin\Debug\netcoreapp3.1\Core.Common.Contracts.dll
+F:\GitHub\EintechAPI\Eintech.DataModels\bin\Debug\netcoreapp3.1\Core.Common.dll
+F:\GitHub\EintechAPI\Eintech.DataModels\bin\Debug\netcoreapp3.1\Core.Common.pdb
+F:\GitHub\EintechAPI\Eintech.DataModels\bin\Debug\netcoreapp3.1\Core.Common.Contracts.pdb
+F:\GitHub\EintechAPI\Eintech.DataModels\obj\Debug\netcoreapp3.1\Eintech.DataModels.csprojAssemblyReference.cache
+F:\GitHub\EintechAPI\Eintech.DataModels\obj\Debug\netcoreapp3.1\Eintech.DataModels.AssemblyInfoInputs.cache
+F:\GitHub\EintechAPI\Eintech.DataModels\obj\Debug\netcoreapp3.1\Eintech.DataModels.AssemblyInfo.cs
+F:\GitHub\EintechAPI\Eintech.DataModels\obj\Debug\netcoreapp3.1\Eintech.DataModels.csproj.CoreCompileInputs.cache
+F:\GitHub\EintechAPI\Eintech.DataModels\obj\Debug\netcoreapp3.1\Eintech.DataModels.csproj.CopyComplete
+F:\GitHub\EintechAPI\Eintech.DataModels\obj\Debug\netcoreapp3.1\Eintech.DataModels.dll
+F:\GitHub\EintechAPI\Eintech.DataModels\obj\Debug\netcoreapp3.1\Eintech.DataModels.pdb
