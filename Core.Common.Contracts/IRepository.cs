@@ -23,8 +23,6 @@ namespace Core.Common.Contracts
         #region update
         Task<T> Add(T entity);
         Task<T> Update(T entity);
-        Task<bool> Delete(T entity);
-        Task<bool> Delete(Expression<Func<T, bool>> where);
         Task<bool> DeleteById(int id);
         #endregion
     }

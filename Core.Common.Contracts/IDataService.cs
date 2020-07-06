@@ -10,7 +10,6 @@ namespace Core.Common.Contracts
         Task<T> Add(T model);
         Task<T> Update(T model);
         Task<bool> Delete(int id);
-        Task<bool> Delete(Expression<Func<T, bool>> where);
         Task<T> GetById(int id);
         IQueryable<T> GetAll();
     }

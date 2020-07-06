@@ -1,4 +1,5 @@
-﻿using Eintech.BusinessLayer.Contracts;
+﻿using Ardalis.GuardClauses;
+using Eintech.BusinessLayer.Contracts;
 using Eintech.DataModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace EintechAPI.Controllers
         [HttpGet]
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Person>> Get(int id)
         {
@@ -43,7 +44,7 @@ namespace EintechAPI.Controllers
             catch (Exception ex)
             {
                 this.logger.LogError(ex.Message, ex);
-                throw;
+                throw ex;
             }
         }
 
@@ -71,17 +72,21 @@ namespace EintechAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Create(Person person)
+        public async Task<ActionResult> Create(string firstName, string lastName)
         {
             try
             {
-                await this.peopleDataService.Add(person);
-                return CreatedAtAction(nameof(Get), new { id = person.Id }, person);
+                Guard.Against.NullOrWhiteSpace(firstName, "firstName");
+                Guard.Against.NullOrWhiteSpace(lastName, "lastName");
+
+                Person person = new Person { FirstName = firstName, LastName = lastName };
+                    var addedPerson = await this.peopleDataService.Add(person);
+                return CreatedAtAction(nameof(Get), new { id = addedPerson.Id }, addedPerson);
             }
             catch (Exception ex)
             {
                 this.logger.LogError(ex.Message, ex);
-                throw;
+                throw ex;
             }
         }
 
@@ -90,7 +95,7 @@ namespace EintechAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Update(Person person)
+        public async Task<ActionResult> Update(Person person)
         {
             try
             {
@@ -109,7 +114,7 @@ namespace EintechAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {

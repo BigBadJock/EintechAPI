@@ -26,11 +26,7 @@ namespace Core.Common
         [Editable(false)]
         public DateTime LastUpdated { get; set; }
 
-        public BaseModel()
-        {
-            Created = DateTime.Now;
-            LastUpdated = DateTime.Now;
-        }
+
 
     }
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -8,9 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="Moq" Version="4.14.5" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Eintech.BusinessLayer\Eintech.BusinessLayer.csproj" />
+    <ProjectReference Include="..\Eintech.DataLayer.Contracts\Eintech.DataLayer.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

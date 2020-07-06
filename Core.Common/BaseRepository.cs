@@ -55,55 +55,15 @@ namespace Core.Common
                 this.logger.LogInformation($"Repository: {this.GetType().Name} added new entity");
                 return added.Entity;
             }
-            catch (ArgumentNullException)
+            catch (ArgumentNullException ex)
             {
                 this.logger.LogError($"Repository: {this.GetType().Name} tried to add a null entity");
-                throw;
+                throw ex;
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException ex)
             {
-                this.logger.LogError($"Repository: {this.GetType().Name} failed throwing exception: {e} when trying to add an entity", e);
-                throw;
-            }
-        }
-
-        public virtual async Task<bool> Delete(T entity)
-        {
-            try
-            {
-                Guard.Against.Null(entity, nameof(entity));
-                dbset.Remove(entity);
-                await dataContext.SaveChangesAsync().ConfigureAwait(false);
-                this.logger.LogInformation($"Repository: {this.GetType().Name} deleted then entity: {JsonConvert.SerializeObject(entity)}");
-
-                return true;
-            }
-            catch (DbUpdateException e)
-            {
-                this.logger.LogError($"Repository: {this.GetType().Name} failed throwing exception: {e} when trying to delete an entity : {JsonConvert.SerializeObject(entity)}", e);
-                return false;
-            }
-
-        }
-
-        public virtual async Task<bool> Delete(Expression<Func<T, bool>> where)
-        {
-            try
-            {
-                IEnumerable<T> objects = dbset.Where<T>(where).AsEnumerable();
-                foreach (T obj in objects)
-                {
-                    dbset.Remove(obj);
-                    this.logger.LogInformation($"Repository: {this.GetType().Name} deleting entity: {JsonConvert.SerializeObject(obj)}");
-                }
-                await dataContext.SaveChangesAsync().ConfigureAwait(false);
-                this.logger.LogInformation($"Repository: {this.GetType().Name} deleting multiple entities successful");
-                return true;
-            }
-            catch (DbUpdateException e)
-            {
-                this.logger.LogError($"Repository: {this.GetType().Name} failed throwing exception: {e} when trying to deleting multiple entries", e);
-                throw;
+                this.logger.LogError($"Repository: {this.GetType().Name} failed throwing exception: {ex} when trying to add an entity", ex);
+                throw ex;
             }
         }
 
@@ -111,7 +71,6 @@ namespace Core.Common
         {
             return dbset;
         }
-
 
         public virtual async Task<T> GetById(long id)
         {
@@ -128,14 +87,15 @@ namespace Core.Common
                 Guard.Against.Null(entity, nameof(entity));
                 dbset.Attach(entity);
                 dataContext.Entry(entity).State = EntityState.Modified;
+                entity.LastUpdated = DateTime.Now;
                 await dataContext.SaveChangesAsync().ConfigureAwait(false);
                 this.logger.LogInformation($"Repository: {this.GetType().Name} updating entity: {JsonConvert.SerializeObject(entity)}");
                 return entity;
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException ex)
             {
-                this.logger.LogError($"Repository: {this.GetType().Name} failed throwing exception: {e} when trying to update entity: {JsonConvert.SerializeObject(entity)}", e);
-                throw;
+                this.logger.LogError($"Repository: {this.GetType().Name} failed throwing exception: {ex} when trying to update entity: {JsonConvert.SerializeObject(entity)}", ex);
+                throw ex;
             }
         }
 
@@ -158,10 +118,10 @@ namespace Core.Common
                 }
 
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException ex)
             {
-                this.logger.LogError($"Repository: {this.GetType().Name} failed throwing exception: {e} when trying to deleting entry", e);
-                throw;
+                this.logger.LogError($"Repository: {this.GetType().Name} failed throwing exception: {ex} when trying to deleting entry", ex);
+                throw ex;
             }
         }
     }

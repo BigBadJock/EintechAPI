@@ -37,7 +37,7 @@ namespace Core.Common
             catch (Exception ex)
             {
                 this.logger.LogError($"DataService: {this.GetType().Name} error adding new entity: ${ex.Message}");
-                throw;
+                throw ex;
             }
             finally
             {
@@ -56,29 +56,11 @@ namespace Core.Common
             catch (Exception ex)
             {
                 this.logger.LogError($"DataService: {this.GetType().Name} error deleting entity: ${ex.Message}");
-                throw;
+                throw ex;
             }
             finally
             {
                 this.logger.LogInformation($"DataService: {this.GetType().Name} exiting delete entity");
-            }
-        }
-
-        public async Task<bool> Delete(Expression<Func<T, bool>> where)
-        {
-            try
-            {
-                this.logger.LogInformation($"DataService: {this.GetType().Name} deleting on condition: ${where.ToString()}");
-                return await this.repository.Delete(where);
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogError($"DataService: {this.GetType().Name} error deleting on condition: ${ex.Message}");
-                throw;
-            }
-            finally
-            {
-                this.logger.LogInformation($"DataService: {this.GetType().Name} exiting deleting on condition");
             }
         }
 
@@ -92,7 +74,7 @@ namespace Core.Common
             catch (Exception ex)
             {
                 this.logger.LogError($"DataService: {this.GetType().Name} error getting all: ${ex.Message}");
-                throw;
+                throw ex;
             }
             finally
             {
@@ -110,7 +92,7 @@ namespace Core.Common
             catch (Exception ex)
             {
                 this.logger.LogError($"DataService: {this.GetType().Name} error getting by id: ${ex.Message}");
-                throw;
+                throw ex;
             }
             finally
             {
@@ -129,7 +111,7 @@ namespace Core.Common
             catch (Exception ex)
             {
                 this.logger.LogError($"DataService: {this.GetType().Name} error updating entity: ${ex.Message}");
-                throw;
+                throw ex;
             }
             finally
             {
