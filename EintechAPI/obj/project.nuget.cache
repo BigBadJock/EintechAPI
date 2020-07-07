@@ -138,18 +138,5 @@
     "C:\\Users\\John\\.nuget\\packages\\core.common\\1.0.0\\core.common.1.0.0.nupkg.sha512",
     "C:\\Users\\John\\.nuget\\packages\\core.common.contracts\\1.0.0\\core.common.contracts.1.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "No Authorization header detected"
-    },
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "No Authorization header detected"
-    }
-  ]
+  "logs": []
 }

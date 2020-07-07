@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace EintechAPI.Controllers
 {
-    [Route("api/people")]
+    [Route("api/customer")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly ICustomerDataService peopleDataService;
+        private readonly ICustomerDataService customerDataService;
         private readonly ILogger<CustomerController> logger;
 
-        public CustomerController(ICustomerDataService peopleDataService, ILogger<CustomerController> logger)
+        public CustomerController(ICustomerDataService customerDataService, ILogger<CustomerController> logger)
         {
-            this.peopleDataService = peopleDataService;
+            this.customerDataService = customerDataService;
             this.logger = logger;
         }
 
@@ -33,7 +33,7 @@ namespace EintechAPI.Controllers
         {
             try
             {
-                Customer customer = await this.peopleDataService.GetById(id);
+                Customer customer = await this.customerDataService.GetById(id);
                 if(customer == null)
                 {
                     return new NotFoundResult();
@@ -55,9 +55,9 @@ namespace EintechAPI.Controllers
         {
             try
             {
-                IQueryable<Customer> people = this.peopleDataService.GetAll();
+                IQueryable<Customer> customers = this.customerDataService.GetAll();
 
-                return Ok(people);
+                return Ok(customers);
             }
             catch (Exception ex)
             {
@@ -79,7 +79,7 @@ namespace EintechAPI.Controllers
                 Guard.Against.NullOrWhiteSpace(customer.FirstName, "firstName");
                 Guard.Against.NullOrWhiteSpace(customer.LastName, "lastName");
 
-                var addedcustomer = await this.peopleDataService.Add(customer);
+                var addedcustomer = await this.customerDataService.Add(customer);
                 return CreatedAtAction(nameof(Get), new { id = addedcustomer.Id }, addedcustomer);
             }
             catch (Exception ex)
@@ -89,7 +89,7 @@ namespace EintechAPI.Controllers
             }
         }
 
-        [HttpPatch]
+        [HttpPut("{id:int}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -98,7 +98,7 @@ namespace EintechAPI.Controllers
         {
             try
             {
-                var updated = await this.peopleDataService.Update(customer);
+                var updated = await this.customerDataService.Update(customer);
                 return Ok(updated);
             }
             catch (Exception ex)
@@ -117,7 +117,7 @@ namespace EintechAPI.Controllers
         {
             try
             {
-                var success = await this.peopleDataService.Delete(id);
+                var success = await this.customerDataService.Delete(id);
                 return Ok(success);
             }
             catch (Exception ex)
