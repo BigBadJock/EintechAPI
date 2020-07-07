@@ -16,14 +16,14 @@ namespace BusinessLayerTests
     [TestCategory("Business Layer")]
     public class PeopleDataServiceTest
     {
-        private Mock<IPeopleRepository> repository;
-        private Mock<ILogger<Person>> logger;
+        private Mock<ICustomerRepository> repository;
+        private Mock<ILogger<Customer>> logger;
 
         [TestInitialize]
         public void Initialize()
         {
-            this.repository = new Mock<IPeopleRepository>();
-            this.logger = new Mock<ILogger<Person>>();
+            this.repository = new Mock<ICustomerRepository>();
+            this.logger = new Mock<ILogger<Customer>>();
 
         }
 
@@ -34,16 +34,16 @@ namespace BusinessLayerTests
         public async Task GetById_Success_Test()
         {
             // arrange
-            Person expected = new Person { Id = 1, FirstName = "John", LastName = "McArthur" };
+            Customer expected = new Customer { Id = 1, FirstName = "John", LastName = "McArthur" };
             this.repository.Setup(rep => rep.GetById(1)).ReturnsAsync(expected);
 
-            PeopleDataService dataService = new PeopleDataService(this.repository.Object, this.logger.Object);
+            CustomerDataService dataService = new CustomerDataService(this.repository.Object, this.logger.Object);
 
             // act
-            Person actual = await dataService.GetById(1);
+            Customer actual = await dataService.GetById(1);
 
             // assert
-            Assert.IsInstanceOfType(actual, typeof(Person));
+            Assert.IsInstanceOfType(actual, typeof(Customer));
             Assert.AreEqual(expected, actual);
         }
 
@@ -52,13 +52,13 @@ namespace BusinessLayerTests
         public async Task GetById_NotFound_Test()
         {
             // arrange
-            Person expected = null;
+            Customer expected = null;
             this.repository.Setup(rep => rep.GetById(1)).ReturnsAsync(expected);
 
-            PeopleDataService dataService = new PeopleDataService(this.repository.Object, this.logger.Object);
+            CustomerDataService dataService = new CustomerDataService(this.repository.Object, this.logger.Object);
 
             // act
-            Person actual = await dataService.GetById(1);
+            Customer actual = await dataService.GetById(1);
 
             // assert
             Assert.IsNull(actual);
@@ -71,23 +71,23 @@ namespace BusinessLayerTests
         public void GetAll_Success_Test()
         {
             // arrange
-            var expected = new List<Person>
+            var expected = new List<Customer>
             {
-               new Person { Id = 1, FirstName = "John", LastName = "McArthur" },
-               new Person { Id = 2, FirstName = "John", LastName = "Smith" }
+               new Customer { Id = 1, FirstName = "John", LastName = "McArthur" },
+               new Customer { Id = 2, FirstName = "John", LastName = "Smith" }
             }.AsQueryable();
 
 
             this.repository.Setup(rep => rep.GetAll()).Returns(expected);
 
 
-            PeopleDataService dataService = new PeopleDataService(this.repository.Object, this.logger.Object);
+            CustomerDataService dataService = new CustomerDataService(this.repository.Object, this.logger.Object);
 
             // act
-            IQueryable<Person> actual = dataService.GetAll();
+            IQueryable<Customer> actual = dataService.GetAll();
 
             // assert
-            Assert.IsInstanceOfType(actual, typeof(IQueryable<Person>));
+            Assert.IsInstanceOfType(actual, typeof(IQueryable<Customer>));
             Assert.AreEqual(expected, actual);
             Assert.AreEqual(2, actual.Count());
         }
@@ -97,17 +97,17 @@ namespace BusinessLayerTests
         public void GetAll_NoData_Test()
         {
             // arrange
-            var expected = new List<Person>().AsQueryable();
+            var expected = new List<Customer>().AsQueryable();
 
             this.repository.Setup(rep => rep.GetAll()).Returns(expected);
 
-            PeopleDataService dataService = new PeopleDataService(this.repository.Object, this.logger.Object);
+            CustomerDataService dataService = new CustomerDataService(this.repository.Object, this.logger.Object);
 
             // act
-            IQueryable<Person> actual = dataService.GetAll();
+            IQueryable<Customer> actual = dataService.GetAll();
 
             // assert
-            Assert.IsInstanceOfType(actual, typeof(IQueryable<Person>));
+            Assert.IsInstanceOfType(actual, typeof(IQueryable<Customer>));
             Assert.AreEqual(expected, actual);
             Assert.AreEqual(0, actual.Count());
         }
@@ -120,17 +120,17 @@ namespace BusinessLayerTests
         public async Task Add_Success_Test()
         {
             // arrange
-            Person newPerson = new Person { FirstName = "John", LastName = "McArthur" };
-            Person expected = new Person { Id = 1, FirstName = "John", LastName = "McArthur" };
-            this.repository.Setup(rep => rep.Add(newPerson)).ReturnsAsync(expected);
+            Customer newCustomer = new Customer { FirstName = "John", LastName = "McArthur" };
+            Customer expected = new Customer { Id = 1, FirstName = "John", LastName = "McArthur" };
+            this.repository.Setup(rep => rep.Add(newCustomer)).ReturnsAsync(expected);
 
-            PeopleDataService dataService = new PeopleDataService(this.repository.Object, this.logger.Object);
+            CustomerDataService dataService = new CustomerDataService(this.repository.Object, this.logger.Object);
 
             // act
-            Person actual = await dataService.Add(newPerson);
+            Customer actual = await dataService.Add(newCustomer);
 
             // assert
-            Assert.IsInstanceOfType(actual, typeof(Person));
+            Assert.IsInstanceOfType(actual, typeof(Customer));
             Assert.AreEqual(expected, actual);
         }
 
@@ -140,13 +140,13 @@ namespace BusinessLayerTests
         public async Task Add_Failure_Test()
         {
             // arrange
-            Person newPerson = new Person { FirstName = "John", LastName = "McArthur" };
-            this.repository.Setup(rep => rep.Add(newPerson)).ThrowsAsync(new DbUpdateException());
+            Customer newCustomer = new Customer { FirstName = "John", LastName = "McArthur" };
+            this.repository.Setup(rep => rep.Add(newCustomer)).ThrowsAsync(new DbUpdateException());
 
-            PeopleDataService dataService = new PeopleDataService(this.repository.Object, this.logger.Object);
+            CustomerDataService dataService = new CustomerDataService(this.repository.Object, this.logger.Object);
 
             // act
-            Person actual = await dataService.Add(newPerson);
+            Customer actual = await dataService.Add(newCustomer);
 
             // assert
         }
@@ -160,17 +160,17 @@ namespace BusinessLayerTests
         public async Task Update_Success_Test()
         {
             // arrange
-            Person existingPerson = new Person { Id=1, FirstName = "John", LastName = "McArthur", LastUpdated = DateTime.Parse("2019/12/31 12:00:00") };
-            Person expected = new Person { Id = 1, FirstName = "John", LastName = "McArthur", LastUpdated = DateTime.Now };
-            this.repository.Setup(rep => rep.Update(existingPerson)).ReturnsAsync(expected);
+            Customer existingCustomer = new Customer { Id=1, FirstName = "John", LastName = "McArthur", LastUpdated = DateTime.Parse("2019/12/31 12:00:00") };
+            Customer expected = new Customer { Id = 1, FirstName = "John", LastName = "McArthur", LastUpdated = DateTime.Now };
+            this.repository.Setup(rep => rep.Update(existingCustomer)).ReturnsAsync(expected);
 
-            PeopleDataService dataService = new PeopleDataService(this.repository.Object, this.logger.Object);
+            CustomerDataService dataService = new CustomerDataService(this.repository.Object, this.logger.Object);
 
             // act
-            Person actual = await dataService.Update(existingPerson);
+            Customer actual = await dataService.Update(existingCustomer);
 
             // assert
-            Assert.IsInstanceOfType(actual, typeof(Person));
+            Assert.IsInstanceOfType(actual, typeof(Customer));
             Assert.AreEqual(expected, actual);
         }
 
@@ -180,13 +180,13 @@ namespace BusinessLayerTests
         public async Task Update_Failure_Test()
         {
             // arrange
-            Person existingPerson = new Person { Id = 1, FirstName = "John", LastName = "McArthur", LastUpdated = DateTime.Parse("2019/12/31 12:00:00") };
-            this.repository.Setup(rep => rep.Update(existingPerson)).ThrowsAsync(new DbUpdateException());
+            Customer existingCustomer = new Customer { Id = 1, FirstName = "John", LastName = "McArthur", LastUpdated = DateTime.Parse("2019/12/31 12:00:00") };
+            this.repository.Setup(rep => rep.Update(existingCustomer)).ThrowsAsync(new DbUpdateException());
 
-            PeopleDataService dataService = new PeopleDataService(this.repository.Object, this.logger.Object);
+            CustomerDataService dataService = new CustomerDataService(this.repository.Object, this.logger.Object);
 
             // act
-            Person actual = await dataService.Update(existingPerson);
+            Customer actual = await dataService.Update(existingCustomer);
 
             // assert
         }
@@ -200,7 +200,7 @@ namespace BusinessLayerTests
         {
             //arrange
             this.repository.Setup(rep => rep.DeleteById(1)).ReturnsAsync(true);
-            PeopleDataService dataService = new PeopleDataService(this.repository.Object, this.logger.Object);
+            CustomerDataService dataService = new CustomerDataService(this.repository.Object, this.logger.Object);
 
             //act
             bool actual = await dataService.Delete(1);
@@ -217,7 +217,7 @@ namespace BusinessLayerTests
         {
             //arrange
             this.repository.Setup(rep => rep.DeleteById(1)).ThrowsAsync(new DbUpdateException());
-            PeopleDataService dataService = new PeopleDataService(this.repository.Object, this.logger.Object);
+            CustomerDataService dataService = new CustomerDataService(this.repository.Object, this.logger.Object);
 
             //act
             bool actual = await dataService.Delete(1);

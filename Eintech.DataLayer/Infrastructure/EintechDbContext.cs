@@ -15,7 +15,7 @@ namespace Eintech.DataLayer.Infrastructure
             await base.SaveChangesAsync();
         }
 
-        public DbSet<Person> People { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
     }
 }

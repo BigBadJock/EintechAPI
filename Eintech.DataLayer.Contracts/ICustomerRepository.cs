@@ -3,7 +3,7 @@ using Eintech.DataModels;
 
 namespace Eintech.DataLayer.Contracts
 {
-    public interface IPeopleRepository: IRepository<Person>
+    public interface ICustomerRepository: IRepository<Customer>
     {
         
     }

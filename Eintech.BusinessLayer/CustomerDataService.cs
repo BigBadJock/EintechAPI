@@ -6,10 +6,10 @@ using Microsoft.Extensions.Logging;
 
 namespace Eintech.BusinessLayer
 {
-    public class PeopleDataService: BaseDataService<Person>, IPeopleDataService
+    public class CustomerDataService: BaseDataService<Customer>, ICustomerDataService
     {
 
-        public PeopleDataService(IPeopleRepository repository, ILogger<Person> logger): base(repository, logger)
+        public CustomerDataService(ICustomerRepository repository, ILogger<Customer> logger): base(repository, logger)
         {
             this.repository = repository;
             this.logger = logger;

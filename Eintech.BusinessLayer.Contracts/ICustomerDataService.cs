@@ -3,7 +3,7 @@ using Eintech.DataModels;
 
 namespace Eintech.BusinessLayer.Contracts
 {
-    public interface IPeopleDataService: IDataService<Person>
+    public interface ICustomerDataService: IDataService<Customer>
     {
         
     }

@@ -18,14 +18,14 @@ namespace APITests
     public class PeopleControllerTests
     {
 
-        private Mock<IPeopleDataService> dataService;
-        private Mock<ILogger<PeopleController>> logger;
+        private Mock<ICustomerDataService> dataService;
+        private Mock<ILogger<CustomerController>> logger;
 
         [TestInitialize]
         public void Initialize()
         {
-            this.dataService = new Mock<IPeopleDataService>();
-            this.logger = new Mock<ILogger<PeopleController>>();
+            this.dataService = new Mock<ICustomerDataService>();
+            this.logger = new Mock<ILogger<CustomerController>>();
         }
 
         #region GetById
@@ -34,10 +34,10 @@ namespace APITests
         public async Task GetById_Success_Test()
         {
             // arrange
-            Person expected = new Person { Id = 1, FirstName = "John", LastName = "McArthur" };
+            Customer expected = new Customer { Id = 1, FirstName = "John", LastName = "McArthur" };
             this.dataService.Setup(ds => ds.GetById(1)).ReturnsAsync(expected);
 
-            PeopleController controller = new PeopleController(this.dataService.Object, this.logger.Object);
+            CustomerController controller = new CustomerController(this.dataService.Object, this.logger.Object);
 
             // act
             var actionResult = await controller.Get(1);
@@ -54,10 +54,10 @@ namespace APITests
         public async Task GetById_NotFound_Test()
         {
             // arrange
-            Person expected = null;
+            Customer expected = null;
             this.dataService.Setup(ds => ds.GetById(1)).ReturnsAsync(expected);
 
-            PeopleController controller = new PeopleController(this.dataService.Object, this.logger.Object);
+            CustomerController controller = new CustomerController(this.dataService.Object, this.logger.Object);
 
             // act
             var actionResult = await controller.Get(1);
@@ -76,7 +76,7 @@ namespace APITests
             // arrange
             this.dataService.Setup(ds => ds.GetById(1)).ThrowsAsync(new Exception());
 
-            PeopleController controller = new PeopleController(this.dataService.Object, this.logger.Object);
+            CustomerController controller = new CustomerController(this.dataService.Object, this.logger.Object);
 
             // act
             var actionResult = await controller.Get(1);
@@ -90,15 +90,15 @@ namespace APITests
         public void GetAll_Success_Test()
         {
             // arrange
-            var expected = new List<Person>
+            var expected = new List<Customer>
             {
-               new Person { Id = 1, FirstName = "John", LastName = "McArthur" },
-               new Person { Id = 2, FirstName = "John", LastName = "Smith" }
+               new Customer { Id = 1, FirstName = "John", LastName = "McArthur" },
+               new Customer { Id = 2, FirstName = "John", LastName = "Smith" }
             }.AsQueryable();
 
             this.dataService.Setup(ds => ds.GetAll()).Returns(expected);
 
-            PeopleController controller = new PeopleController(this.dataService.Object, this.logger.Object);
+            CustomerController controller = new CustomerController(this.dataService.Object, this.logger.Object);
 
             // act
             var actionResult = controller.GetAll();
@@ -115,11 +115,11 @@ namespace APITests
         public void GetAll_NoData_Success_Test()
         {
             // arrange
-            var expected = new List<Person>().AsQueryable();
+            var expected = new List<Customer>().AsQueryable();
 
             this.dataService.Setup(ds => ds.GetAll()).Returns(expected);
 
-            PeopleController controller = new PeopleController(this.dataService.Object, this.logger.Object);
+            CustomerController controller = new CustomerController(this.dataService.Object, this.logger.Object);
 
             // act
             var actionResult = controller.GetAll();
@@ -139,7 +139,7 @@ namespace APITests
             // arrange
             this.dataService.Setup(ds => ds.GetAll()).Throws(new Exception());
 
-            PeopleController controller = new PeopleController(this.dataService.Object, this.logger.Object);
+            CustomerController controller = new CustomerController(this.dataService.Object, this.logger.Object);
 
             // act
             var actionResult = controller.GetAll();
@@ -154,14 +154,15 @@ namespace APITests
         public async Task Create_Success_Test()
         {
             // arrange
-            Person expected = new Person { Id = 1, FirstName = "John", LastName = "McArthur" };
-            this.dataService.Setup(ds => ds.Add(It.IsAny<Person>())).ReturnsAsync(expected);
+            Customer newCustomer = new Customer { FirstName = "John", LastName = "McArthur" };
+            Customer expected = new Customer { Id = 1, FirstName = "John", LastName = "McArthur" };
+            this.dataService.Setup(ds => ds.Add(It.IsAny<Customer>())).ReturnsAsync(expected);
 
-            PeopleController controller = new PeopleController(this.dataService.Object, this.logger.Object);
+            CustomerController controller = new CustomerController(this.dataService.Object, this.logger.Object);
 
             // act
-            var actionResult = await controller.Create("John", "McArthur") as CreatedAtActionResult;
-            var actual = actionResult.Value as Person;
+            var actionResult = await controller.Create(newCustomer) as CreatedAtActionResult;
+            var actual = actionResult.Value as Customer;
 
             // assert
             Assert.IsNotNull(actionResult);
@@ -175,13 +176,13 @@ namespace APITests
         public async Task Create_Failure_Test()
         {
             // arrange
-            Person newPerson = null;
-            this.dataService.Setup(ds => ds.Add(It.IsAny<Person>())).ThrowsAsync(new Exception());
+            Customer newCustomer = new Customer { FirstName = "John", LastName = "McArthur" };
+            this.dataService.Setup(ds => ds.Add(It.IsAny<Customer>())).ThrowsAsync(new Exception());
 
-            PeopleController controller = new PeopleController(this.dataService.Object, this.logger.Object);
+            CustomerController controller = new CustomerController(this.dataService.Object, this.logger.Object);
 
             // act
-            var actionResult = await controller.Create("John", "McArthur") as CreatedAtActionResult;
+            var actionResult = await controller.Create(newCustomer) as CreatedAtActionResult;
 
         }
         #endregion
@@ -192,15 +193,15 @@ namespace APITests
         public async Task Update_Success_Test()
         {
             // arrange
-            Person update = new Person { Id = 1, FirstName = "John", LastName = "McArthur" };
-            Person expected = new Person { Id = 1, FirstName = "John", LastName = "McArthur", LastUpdated= DateTime.Parse("2020/07/06 22:00") };
+            Customer update = new Customer { Id = 1, FirstName = "John", LastName = "McArthur" };
+            Customer expected = new Customer { Id = 1, FirstName = "John", LastName = "McArthur", LastUpdated= DateTime.Parse("2020/07/06 22:00") };
             this.dataService.Setup(ds => ds.Update(update)).ReturnsAsync(expected);
 
-            PeopleController controller = new PeopleController(this.dataService.Object, this.logger.Object);
+            CustomerController controller = new CustomerController(this.dataService.Object, this.logger.Object);
 
             // act
             var actionResult = await controller.Update(update) as OkObjectResult;
-            var actual = actionResult.Value as Person;
+            var actual = actionResult.Value as Customer;
 
             // assert
             Assert.IsNotNull(actionResult);
@@ -214,10 +215,10 @@ namespace APITests
         public async Task Update_Failure_Test()
         {
             // arrange
-            Person update = null;
+            Customer update = null;
             this.dataService.Setup(ds => ds.Update(update)).ThrowsAsync(new Exception());
 
-            PeopleController controller = new PeopleController(this.dataService.Object, this.logger.Object);
+            CustomerController controller = new CustomerController(this.dataService.Object, this.logger.Object);
 
             // act
             var actionResult = await controller.Update(update);
@@ -230,10 +231,10 @@ namespace APITests
         public async Task Delete_Success_Test()
         {
             // arrange
-            Person delete = new Person { Id = 1, FirstName = "John", LastName = "McArthur" };
+            Customer delete = new Customer { Id = 1, FirstName = "John", LastName = "McArthur" };
             this.dataService.Setup(ds => ds.Delete(1)).ReturnsAsync(true);
 
-            PeopleController controller = new PeopleController(this.dataService.Object, this.logger.Object);
+            CustomerController controller = new CustomerController(this.dataService.Object, this.logger.Object);
 
             // act
             var actionResult = await controller.Delete(1) as OkObjectResult;
@@ -251,7 +252,7 @@ namespace APITests
             // arrange
             this.dataService.Setup(ds => ds.Delete(1)).ThrowsAsync(new Exception());
 
-            PeopleController controller = new PeopleController(this.dataService.Object, this.logger.Object);
+            CustomerController controller = new CustomerController(this.dataService.Object, this.logger.Object);
 
             // act
             var actionResult = await controller.Delete(1);

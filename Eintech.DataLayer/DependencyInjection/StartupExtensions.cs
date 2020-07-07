@@ -10,7 +10,7 @@ namespace Eintech.DataLayer.DependencyInjection
         public static void RegisterDataServices(this IServiceCollection services)
         {
             services.AddScoped<EintechDbContext, EintechDbContext>();
-            services.AddScoped<IPeopleRepository, PeopleRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
         }
     }
 }

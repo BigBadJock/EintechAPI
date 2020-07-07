@@ -15,7 +15,7 @@ namespace Eintech.BusinessLayer.DependencyInjection
         {
             services.RegisterDataServices();
 
-            services.AddScoped<IPeopleDataService, PeopleDataService>();
+            services.AddScoped<ICustomerDataService, CustomerDataService>();
         }
     }
 }

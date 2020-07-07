@@ -4,9 +4,9 @@ using System;
 namespace Eintech.DataModels
 {
     /// <summary>
-    /// Person Model
+    /// Customer Model
     /// </summary>
-    public class Person : BaseModel
+    public class Customer : BaseModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

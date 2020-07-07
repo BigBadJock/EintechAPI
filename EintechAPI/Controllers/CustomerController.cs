@@ -13,12 +13,12 @@ namespace EintechAPI.Controllers
 {
     [Route("api/people")]
     [ApiController]
-    public class PeopleController : ControllerBase
+    public class CustomerController : ControllerBase
     {
-        private readonly IPeopleDataService peopleDataService;
-        private readonly ILogger<PeopleController> logger;
+        private readonly ICustomerDataService peopleDataService;
+        private readonly ILogger<CustomerController> logger;
 
-        public PeopleController(IPeopleDataService peopleDataService, ILogger<PeopleController> logger)
+        public CustomerController(ICustomerDataService peopleDataService, ILogger<CustomerController> logger)
         {
             this.peopleDataService = peopleDataService;
             this.logger = logger;
@@ -29,17 +29,17 @@ namespace EintechAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Person>> Get(int id)
+        public async Task<ActionResult<Customer>> Get(int id)
         {
             try
             {
-                Person person = await this.peopleDataService.GetById(id);
-                if(person == null)
+                Customer customer = await this.peopleDataService.GetById(id);
+                if(customer == null)
                 {
                     return new NotFoundResult();
                 }
 
-                return Ok(person);
+                return Ok(customer);
             }
             catch (Exception ex)
             {
@@ -51,11 +51,11 @@ namespace EintechAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<Person[]> GetAll()
+        public ActionResult<Customer[]> GetAll()
         {
             try
             {
-                IQueryable<Person> people = this.peopleDataService.GetAll();
+                IQueryable<Customer> people = this.peopleDataService.GetAll();
 
                 return Ok(people);
             }
@@ -72,16 +72,15 @@ namespace EintechAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Create(string firstName, string lastName)
+        public async Task<ActionResult> Create(Customer customer)
         {
             try
             {
-                Guard.Against.NullOrWhiteSpace(firstName, "firstName");
-                Guard.Against.NullOrWhiteSpace(lastName, "lastName");
+                Guard.Against.NullOrWhiteSpace(customer.FirstName, "firstName");
+                Guard.Against.NullOrWhiteSpace(customer.LastName, "lastName");
 
-                Person person = new Person { FirstName = firstName, LastName = lastName };
-                    var addedPerson = await this.peopleDataService.Add(person);
-                return CreatedAtAction(nameof(Get), new { id = addedPerson.Id }, addedPerson);
+                var addedcustomer = await this.peopleDataService.Add(customer);
+                return CreatedAtAction(nameof(Get), new { id = addedcustomer.Id }, addedcustomer);
             }
             catch (Exception ex)
             {
@@ -95,11 +94,11 @@ namespace EintechAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Update(Person person)
+        public async Task<ActionResult> Update(Customer customer)
         {
             try
             {
-                var updated = await this.peopleDataService.Update(person);
+                var updated = await this.peopleDataService.Update(customer);
                 return Ok(updated);
             }
             catch (Exception ex)

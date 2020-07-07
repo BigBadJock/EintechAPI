@@ -6,11 +6,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Eintech.DataLayer.Repositories
 {
-    public class PeopleRepository: BaseRepository<Person>, IPeopleRepository
+    public class CustomerRepository: BaseRepository<Customer>, ICustomerRepository
     {
-        private ILogger<PeopleRepository> logger;
+        private ILogger<CustomerRepository> logger;
 
-        public PeopleRepository(EintechDbContext dataContext, ILogger<PeopleRepository> logger): base(dataContext, logger)
+        public CustomerRepository(EintechDbContext dataContext, ILogger<CustomerRepository> logger): base(dataContext, logger)
         {
             this.logger = logger;
         }
