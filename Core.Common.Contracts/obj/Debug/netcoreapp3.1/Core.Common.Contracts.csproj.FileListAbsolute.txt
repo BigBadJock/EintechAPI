@@ -1,0 +1,9 @@
+F:\GitHub\EintechAPI\Core.Common.Contracts\bin\Debug\netcoreapp3.1\Core.Common.Contracts.deps.json
+F:\GitHub\EintechAPI\Core.Common.Contracts\bin\Debug\netcoreapp3.1\Core.Common.Contracts.dll
+F:\GitHub\EintechAPI\Core.Common.Contracts\bin\Debug\netcoreapp3.1\Core.Common.Contracts.pdb
+F:\GitHub\EintechAPI\Core.Common.Contracts\obj\Debug\netcoreapp3.1\Core.Common.Contracts.csprojAssemblyReference.cache
+F:\GitHub\EintechAPI\Core.Common.Contracts\obj\Debug\netcoreapp3.1\Core.Common.Contracts.AssemblyInfoInputs.cache
+F:\GitHub\EintechAPI\Core.Common.Contracts\obj\Debug\netcoreapp3.1\Core.Common.Contracts.AssemblyInfo.cs
+F:\GitHub\EintechAPI\Core.Common.Contracts\obj\Debug\netcoreapp3.1\Core.Common.Contracts.csproj.CoreCompileInputs.cache
+F:\GitHub\EintechAPI\Core.Common.Contracts\obj\Debug\netcoreapp3.1\Core.Common.Contracts.dll
+F:\GitHub\EintechAPI\Core.Common.Contracts\obj\Debug\netcoreapp3.1\Core.Common.Contracts.pdb

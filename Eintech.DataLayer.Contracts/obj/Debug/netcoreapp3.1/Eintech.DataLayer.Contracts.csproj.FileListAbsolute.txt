@@ -1,0 +1,16 @@
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\bin\Debug\netcoreapp3.1\Eintech.DataLayer.Contracts.deps.json
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\bin\Debug\netcoreapp3.1\Eintech.DataLayer.Contracts.dll
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\bin\Debug\netcoreapp3.1\Eintech.DataLayer.Contracts.pdb
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\bin\Debug\netcoreapp3.1\Core.Common.Contracts.dll
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\bin\Debug\netcoreapp3.1\Core.Common.dll
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\bin\Debug\netcoreapp3.1\Eintech.DataModels.dll
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\bin\Debug\netcoreapp3.1\Eintech.DataModels.pdb
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\bin\Debug\netcoreapp3.1\Core.Common.pdb
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\bin\Debug\netcoreapp3.1\Core.Common.Contracts.pdb
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\obj\Debug\netcoreapp3.1\Eintech.DataLayer.Contracts.csprojAssemblyReference.cache
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\obj\Debug\netcoreapp3.1\Eintech.DataLayer.Contracts.AssemblyInfoInputs.cache
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\obj\Debug\netcoreapp3.1\Eintech.DataLayer.Contracts.AssemblyInfo.cs
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\obj\Debug\netcoreapp3.1\Eintech.DataLayer.Contracts.csproj.CoreCompileInputs.cache
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\obj\Debug\netcoreapp3.1\Eintech.DataLayer.Contracts.csproj.CopyComplete
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\obj\Debug\netcoreapp3.1\Eintech.DataLayer.Contracts.dll
+F:\GitHub\EintechAPI\Eintech.DataLayer.Contracts\obj\Debug\netcoreapp3.1\Eintech.DataLayer.Contracts.pdb
